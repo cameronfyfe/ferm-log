@@ -1,0 +1,24 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			// Cortex-Debug configuration
+			// https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug
+			//
+			// Add path of GDBServer exe for version of JLink you're using to your user settings:
+			// "cortex-debug.JLinkGDBServerPath": "C:\\Program Files (x86)\\SEGGER\\JLink_V631a\\JLinkGDBServerCL.exe"
+			//
+			"name": "Debug",
+			"type": "cortex-debug",
+			"request": "launch",
+			"servertype": "jlink",
+			"cwd": "${workspaceRoot}",
+			"executable": "${workspaceRoot}/BUILD/NUCLEO_F446RE/GCC_ARM/Firmware.elf", 
+			"device": "STM32F446RE",
+			"interface": "swd",
+			"runToMain": true,
+			"internalConsoleOptions": "openOnSessionStart",
+			"preLaunchTask": "Build"
+		}
+	]
+}
