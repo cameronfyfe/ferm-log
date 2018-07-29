@@ -15,7 +15,7 @@ def home():
 
     :return:        the rendered template 'home.html'
     """
-    return render_template('home.html')
+    return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Application Home Page</title></head><body><h2>Hello World!</h2></body</html>'
 
 # If we're running in stand alone mode, run the application
 if __name__ == '__main__':
