@@ -8,10 +8,6 @@ from flask import (
 )
 
 
-def get_timestamp():
-    return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
-
-
 # Data to serve with our API
 PEOPLE = {
     "Farrell": {
