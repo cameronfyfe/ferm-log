@@ -15,35 +15,7 @@ paths:
   /people:
     get:
       operationId: people.read_all
-      tags:
-        - People
-      summary: Read the entire list of people
-      description: Read the list of people
-      parameters:
-        - name: length
-          in: query
-          type: integer
-          description: Number of people to get from people
-          required: false
-        - name: offset
-          in: query
-          type: integer
-          description: Offset from beginning of list where to start gathering people
-          required: false
-      responses:
-        200:
-          description: Successfully read people list operation
-          schema:
-            type: array
-            items:
-              properties:
-                fname:
-                  type: string
-                lname:
-                  type: string
-                timestamp:
-                  type: string
-
+      
     post:
       operationId: people.create
       tags:
