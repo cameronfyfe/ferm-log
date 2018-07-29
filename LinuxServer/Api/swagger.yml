@@ -12,7 +12,7 @@ basePath: /fermlog
 
 # Paths supported by the server application
 paths:
-  /{system}/sensors:
+  /{system_name}/sensors:
     get:
       operationId: sensors.get_all
       responses:
