@@ -82,29 +82,19 @@ bool DS18B20::GetTemperatureC(float *temperature)
 {
 	uint8_t scratchpad[9];
 
-	if (_only_slave)
-	{	
-		// Copy temperature reading to scratchpad
-		_one_wire.Reset();
-		_one_wire.SendByte(ROM_CMD_SKIP_ROM);
-		_one_wire.SendByte(FUNC_CMD_CONVERT_T);
+    // Copy temperature reading to scratchpad
+    _one_wire.Reset();
+    this->SendRomCmdStart();
+    _one_wire.SendByte(FUNC_CMD_CONVERT_T);
 
-        // Wait for ADC conversion
-        wait_ms(_resolution_config.conversion_time + 10);
+    // Wait for ADC conversion
+    wait_ms(_resolution_config.conversion_time + 10);
 
-		// Read scratchpad
-		_one_wire.Reset();
-		_one_wire.SendByte(ROM_CMD_SKIP_ROM);
-		_one_wire.SendByte(FUNC_CMD_READ_SCRATCHPAD);
-		for (int i=0; i<9; i++)
-		{
-			scratchpad[i] = _one_wire.ReadByte();
-		}
-	}
-	else
-	{
-		// TODO: read temperature by ROM code
-	}
+    // Read scratchpad
+    _one_wire.Reset();
+    this->SendRomCmdStart();
+    _one_wire.SendByte(FUNC_CMD_READ_SCRATCHPAD);
+    _one_wire.ReadBytes(scratchpad, 9);
 
 	*temperature = 0.0625 * ((scratchpad[T_HI] << 8) | (scratchpad[T_LO] & _resolution_config.low_byte_bit_mask));
 
@@ -135,6 +125,16 @@ bool DS18B20::GetTemperatureF(float *temperature)
 }
 
 
+bool DS18B20::ReadRomCode(uint64_t *rom_code)
+{
+    _one_wire.Reset();
+    _one_wire.SendByte(ROM_CMD_READ_ROM);
+    _one_wire.ReadBytes((uint8_t *)(rom_code), 8);
+
+    return (CRC08((uint8_t *)(rom_code), 7) == ((uint8_t *)(rom_code))[7] && *rom_code != 0);
+}
+
+
 // Return number of DS18B20s on the OneWire bus
 int DS18B20::GetNumOfRomCodes(OneWire &one_wire)
 {
@@ -146,6 +146,20 @@ int DS18B20::GetNumOfRomCodes(OneWire &one_wire)
 int DS18B20::ListRomCodes(OneWire &one_wire, uint64_t rom_codes[], int array_size)
 {
 	// TODO
+}
+
+
+void DS18B20::SendRomCmdStart()
+{
+	if (_only_slave)
+	{	
+		_one_wire.SendByte(ROM_CMD_SKIP_ROM);
+    }
+    else
+    {
+        _one_wire.SendByte(ROM_CMD_MATCH_ROM);
+        _one_wire.SendBytes((uint8_t *)(&_rom_code), 8);
+    }
 }
 
 

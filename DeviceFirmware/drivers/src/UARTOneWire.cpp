@@ -51,6 +51,26 @@ uint8_t UARTOneWire::ReadByte()
 }
 
 
+// Send multiple bytes on bus
+void UARTOneWire::SendBytes(uint8_t *bytes, int len)
+{
+	for (int i=0; i<len; i++)
+	{
+		SendByte(bytes[i]);
+	}
+}
+
+
+// Read multiple bytes from bus
+void UARTOneWire::ReadBytes(uint8_t *bytes, int len)
+{
+	for (int i=0; i<len; i++)
+	{
+		bytes[i] = ReadByte();
+	}
+}
+
+
 // Reset slaves on bus
 bool UARTOneWire::Reset()
 {

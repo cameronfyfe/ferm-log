@@ -37,10 +37,14 @@ typedef struct {
 	bool GetTemperatureC(float *temperature);
 	bool GetTemperatureF(float *temperature);
 
+    bool ReadRomCode(uint64_t *rom_code);
+
 	static int GetNumOfRomCodes(OneWire &one_wire);
 	static int ListRomCodes(OneWire &one_wire, uint64_t rom_codes[], int array_size);
 
 private:
+
+    void SendRomCmdStart();
 
 	static uint8_t CRC08(uint8_t *addr, uint8_t len);
 

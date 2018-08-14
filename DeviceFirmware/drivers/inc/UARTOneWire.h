@@ -21,6 +21,9 @@ public:
 	virtual void SendByte(uint8_t byte);
 	virtual uint8_t ReadByte();
 
+    virtual void SendBytes(uint8_t *bytes, int len);
+    virtual void ReadBytes(uint8_t *bytes, int len);
+
 	virtual bool Reset();
 
 private:

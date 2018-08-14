@@ -13,7 +13,7 @@
 			"request": "launch",
 			"servertype": "jlink",
 			"cwd": "${workspaceRoot}",
-			"executable": "${workspaceRoot}/BUILD/NUCLEO_F446RE/GCC_ARM/Firmware.elf", 
+			"executable": "${workspaceRoot}/BUILD/NUCLEO_F446RE/GCC_ARM/DeviceFirmware.elf", 
 			"device": "STM32F446RE",
 			"interface": "swd",
 			"runToMain": true,
